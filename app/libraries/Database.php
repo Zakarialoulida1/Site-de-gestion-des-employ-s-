@@ -104,7 +104,6 @@ public function getParams(){
     } catch (PDOException $e) {
         // Handle the exception, log the error, etc.
         echo 'Error: ' . $e->getMessage();
-        
         return false;
     }
   }

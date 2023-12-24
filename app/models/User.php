@@ -42,10 +42,28 @@ $this->db->bind($data['product_picture']);
 // print_r($this->db->getParams());
 // echo '</pre>';
 
+
+// login user 
+public function login($email, $password){
+    $this->db->query("SELECT * FROM users WHERE email = '$email' ");
+
+
+    $row = $this->db->single();
+    // var_dump($row->motdepasse);
+    // die();
+
+    $hashed_password = $row->motdepasse;
+    if(password_verify($password, $hashed_password)){
+      return $row;
+    } else {
+      return false;
+    }
+  }
+
     // ******************Find user by email*******
     public function findUserByEmail($email){
-      $this->db->query('SELECT * FROM users WHERE email = :email');
-      $this->db->bind(':email', $email);
+      $this->db->query("SELECT * FROM users WHERE email = '$email' ");
+     
 
       $row = $this->db->single();
 
