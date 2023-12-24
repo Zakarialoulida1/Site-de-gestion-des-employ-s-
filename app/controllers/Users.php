@@ -4,7 +4,7 @@ class Users extends Controller{
     public $userModel;
     public function __construct()
     {
-        $this->userModel=$this->model('users');
+        $this->userModel=$this->model('User');
     } 
     public function register(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -22,6 +22,7 @@ class Users extends Controller{
                 'email' =>trim($_POST['email']),
                 'password' =>trim($_POST['password']),
                 'confirm_password' =>trim($_POST['confirm_password']),
+                'roleuser'=>'user',
                 'product_picture_err'=>'',
                 'name_err' =>'',
                 'userlastname_err'=>'',
@@ -32,6 +33,8 @@ class Users extends Controller{
             ];
 
             //*******  VALIDATE DATA***********
+
+
             if(empty($data['product_picture'])){
                 $data['product_picture_err']='please enter picture ';
             }
@@ -79,7 +82,19 @@ class Users extends Controller{
 
             if(empty($data['product_picture_err']) && empty($data['name_err']) && empty($data['userlastname_err']) && empty($data['phoneNumber_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
                 // validated
-                die('SUCCESS');
+
+                //********haching password *********
+                $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
+// var_dump($this->userModel);die();
+
+               /************registring data by class User from the model that they have a function register ************** */
+              if( $this->userModel->register($data)){
+                
+                redirect('users/login');
+               
+              }else{
+                die('something went wrong');
+              }
             }else{
                 // load the view
                 $this->view('users/register',$data);
@@ -97,6 +112,7 @@ class Users extends Controller{
                 'email' =>'',
                 'password' =>'',
                 'confirm_password' =>'',
+                'roleuser'=>'',
                 'product_picture_err'=>'',
                 'name_err' =>'',
                 'userlastname_err'=>'',

@@ -34,35 +34,80 @@
     }
 
     // Prepare statement with query
+    private $paramCounter = 0;
+   private $params = array();
+    // Reset the counter when preparing a new query
     public function query($sql){
-      $this->stmt = $this->dbh->prepare($sql);
+        $this->stmt = $this->dbh->prepare($sql);
+        $this->paramCounter = 0;
+    }
+ 
+
+  //   // Bind values
+  //   public function bind($param, $value, $type = null){
+  //     if (is_null($type)) {
+  //         switch(true){
+  //             case is_int($value):
+  //                 $type = PDO::PARAM_INT;
+  //                 break;
+  //             case is_bool($value):
+  //                 $type = PDO::PARAM_BOOL;
+  //                 break;
+  //             case is_null($value):
+  //                 $type = PDO::PARAM_NULL;
+  //                 break;
+  //             default:
+  //                 $type = PDO::PARAM_STR;
+  //         }
+  //     }
+  
+  //     $this->params[$param] = array('value' => $value, 'type' => $type);  // Store parameter and value for debugging
+  //     return $this->stmt->bindValue($param, $value, $type);
+  // }
+
+
+  public function bind($value){
+    $this->paramCounter++;
+    $type = PDO::PARAM_STR;  // Default type is string
+
+    if (is_int($value)) {
+        $type = PDO::PARAM_INT;
+    } elseif (is_bool($value)) {
+        $type = PDO::PARAM_BOOL;
+    } elseif (is_null($value)) {
+        $type = PDO::PARAM_NULL;
     }
 
-    // Bind values
-    public function bind($param, $value, $type = null){
-      if(is_null($type)){
-        switch(true){
-          case is_int($value):
-            $type = PDO::PARAM_INT;
-            break;
-          case is_bool($value):
-            $type = PDO::PARAM_BOOL;
-            break;
-          case is_null($value):
-            $type = PDO::PARAM_NULL;
-            break;
-          default:
-            $type = PDO::PARAM_STR;
-        }
-      }
+    $this->params[$this->paramCounter] = array('value' => $value, 'type' => $type);  // Store parameter and value for debugging
+    return $this->stmt->bindValue($this->paramCounter, $value, $type);
+}
 
-      $this->stmt->bindValue($param, $value, $type);
-    }
+  
+ 
+  
+  
+  public function getSQL(){
+    return $this->stmt->queryString;
+}
+
+// Get the parameters and their types for debugging
+public function getParams(){
+    return $this->params;
+}
+
+ 
 
     // Execute the prepared statement
     public function execute(){
-      return $this->stmt->execute();
+      try {
+        return $this->stmt->execute();
+    } catch (PDOException $e) {
+        // Handle the exception, log the error, etc.
+        echo 'Error: ' . $e->getMessage();
+        
+        return false;
     }
+  }
 
     // Get result set as array of objects
     public function resultSet(){
