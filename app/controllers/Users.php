@@ -165,9 +165,9 @@ class Users extends Controller{
                 // die();
       
                 if($loggedInUser){
-                    die('SUCCESS');
-                  // Create Session
-                //   $this->createUserSession($loggedInUser);
+                
+                  /********* * Create Session  ************/
+                  $this->createUserSession($loggedInUser);
                 } else {
                   $data['password_err'] = 'Password incorrect';
       
@@ -195,6 +195,42 @@ class Users extends Controller{
 
         }
     }
+
+
+     
+  
+      public function createUserSession($user){
+        $_SESSION['user_id'] = $user->Membre_ID;
+        $_SESSION['user_email'] = $user->email;
+        $_SESSION['user_name'] = $user->prénom;
+        $_SESSION['user_image'] = $user->image;
+        $_SESSION['user_lastname'] = $user->nom;
+        $_SESSION['user_phone'] = $user->téléphone;
+        $_SESSION['user_role'] = $user->roleuser;
+        
+    
+
+
+       $this->view('pages/index',$_SESSION);
+      }
+  
+      public function logout(){
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_email']);
+        unset($_SESSION['user_name']);
+        session_destroy();
+        redirect('users/login');
+      }
+  
+      public function isLoggedIn(){
+        if(isset($_SESSION['user_id'])){
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+
 
 }
 ?>
