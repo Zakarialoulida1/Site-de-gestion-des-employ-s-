@@ -1,5 +1,4 @@
-
-<?php 
+<?php
 
 ?>
 <?php require APPROOT . '/views/inc/header.php'; ?>
@@ -9,9 +8,9 @@
 // var_dump($_SESSION);
 //         die();
 
-$image=$_SESSION['user_image'];
-$name=$_SESSION['user_name'];
-$lastname=$_SESSION['user_lastname'];
+$image = $_SESSION['user_image'];
+$name = $_SESSION['user_name'];
+$lastname = $_SESSION['user_lastname'];
 
 ?>
 
@@ -25,7 +24,7 @@ $lastname=$_SESSION['user_lastname'];
             </div>
             <nav class="mt-5 flex-1 px-2 space-y-1">
 
-              
+
 
 
                 <a id="btnproject" class="text-black hover:bg-[#BFD8D5] hover:bg-opacity-75 group flex items-center px-2 py-2 text-sm font-medium rounded-md" x-state-description="undefined: &quot;bg-indigo-800 text-black&quot;, undefined: &quot;text-black hover:bg-[#BFD8D5] hover:bg-opacity-75&quot;">
@@ -33,7 +32,7 @@ $lastname=$_SESSION['user_lastname'];
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
                     </svg>
                     My Projects
-</a>
+                </a>
 
 
             </nav>
@@ -48,7 +47,12 @@ $lastname=$_SESSION['user_lastname'];
 
                 <p class="text-sm font-medium text-black">
                     <?php echo  $name;
-                    echo $lastname; ?>
+                    echo $lastname;
+
+                    ?>
+
+
+
                 </p>
 
             </div>
@@ -86,62 +90,99 @@ $lastname=$_SESSION['user_lastname'];
         </div>
 
         <div class="myproject bg-gray-100 py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h1 class=" text-center">YOUR PROJECTS </h1>
+            <h1 class=" text-center">YOUR PROJECTS </h1>
 
-                    <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3  2lg:grid-cols-4">
-                   
-
+            <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3  2lg:grid-cols-4">
 
 
 
-
-                            <li class=" col-span-1 flex flex-col text-center bg-white rounded-lg shadow  divide-gray-200">
-                                <div class="flex-1 flex flex-col justify-between p-8 ">
-
-                                    <h3 class=" text-gray-900 text-sm font-medium"><?php echo "projectName" ?></h3>
+                <?php
+                foreach ($data['projects'] as $project) {
 
 
-                                    <div class="  text-gray-500  text-sm">
-                                        <?php
-                                        echo "<p class='mb-3 font-normal text-gray-700'> description</p>";
-
-                                        ?>
-                                    </div>
+                ?>
 
 
-                                    <div class="  flex justify-between">
-                                        <span class="px-2 py-1 text-g*reen-800 text-xs font-medium bg-green-100 rounded-full"><?php ?></span>
-                                        <span class="px-2 py-1 text-green-800 text-xs font-medium bg-red-400 rounded-full"><?php  ?></span>
-                                    </div>
+                    <li class=" col-span-1 flex flex-col text-center bg-white rounded-lg shadow  divide-gray-200">
+                        <div class="flex-1 flex flex-col justify-between p-8 ">
+
+                            <h3 class=" text-gray-900 text-sm font-medium"><?php echo $project->Nom_project ?></h3>
 
 
-                                </div>
-                                <div class="-mt-px flex divide-x divide-gray-200  ">
+                            <div class="  text-gray-500  text-sm">
+                                <?php
+                                echo "<p class='mb-3 font-normal text-gray-700'> $project->descrip  </p>";
+
+                                ?>
+                            </div>
+
+
+                            <div class="  flex justify-between">
+                                <span class="px-2 py-1 text-g*reen-800 text-xs font-medium bg-green-100 rounded-full"><?php echo $project->Date_de_debut ?></span>
+                                <span class="px-2 py-1 text-green-800 text-xs font-medium bg-red-400 rounded-full"><?php echo $project->date_fin ?></span>
+                            </div>
+
+
+                        </div>
+                        <div class="-mt-px flex divide-x divide-gray-200  ">
 
 
 
 
 
-                                    <form class=" w-0 flex-1 flex" method="post">
-
-                                        <input type="hidden" name="deleteId" value="<?php  ?>">
-                                        <button type="submit" id="delete it" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3">Delete it</button>
-
-
-                                    </form>
-                                    <form class="-ml-px w-0 flex-1 flex" action="" method="GET">
-                                        <input type="hidden" name="updateProjectID" id="updateProjectID" value="<?php ?>">
-                                        <a href="editproject.php?id=<?php  ?>" class="btn_update_project relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3"> UPDATE
-                                        </a>
-                                    </form>
-                                </div>
+                            <!-- <form class=" w-0 flex-1 flex" method="post">
+    
+                                        <input type="hidden" name="deleteId" value="<?php  ?>"> -->
+                            <a href="<?= URLROOT . ' /projects/delete_project/' . $project->project_ID ?>" type="submit" id="delete it" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3">Delete it</a>
 
 
-                            </li>
+                            <!-- </form> -->
+                            <a href="<?= URLROOT . ' /projects/project_to_update/' . $project->project_ID ?>" class="btn_update_project relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3"><button> UPDATE</button>
+                            </a>
 
-                    
+                        </div>
 
-                    </ul>
+
+                    </li>
+
+                <?php
+                }
+                ?>
+
+            </ul>
+            <?php 
+             if(true){
+                $data['project_to_update'];
+             }
+            
+            ?>
+
+            <div id="popup" class=" fixed inset-0 bg-gray-500 bg-opacity-75 overflow-y-auto hidden">
+                <div class="flex items-center justify-center min-h-screen">
+                    <div class="bg-white p-8 rounded shadow-md">
+                        <h2 class="text-center font-bold underline ">Add a New Project</h2>
+                        <form action="<?php echo URLROOT; ?>/projects/create" method="post" class="flex flex-col">
+                            <div class="flex flex-col">
+                                <label for="projectName">Project Name:</label>
+                                <input class=" border-2 border-black rounded" type="text" id="projectName" name="projectName" maxlength="200">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="description">Description:</label>
+                                <textarea class=" border-2 border-black rounded" id="description" name="description" rows="4" cols="50" maxlength="3000"></textarea>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="startDate">Start Date:</label>
+                                <input class=" border-2 border-black rounded" type="date" id="startDate" name="startDate">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="endDate">End Date:</label>
+                                <input class=" border-2 border-black rounded" type="date" id="endDate" name="endDate">
+                            </div>
+                            <input class=" hover:bg-green-400 p-2  mt-2 text-center text-black text-xs font-medium bg-gray-200 rounded-full" name="submit" type="submit" value="Add Project">
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 
 

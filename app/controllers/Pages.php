@@ -33,7 +33,7 @@
     public function index(){
       $data = [
         'title' => 'SharePosts',
-        'description' => 'Simple social network built on the TraversyMVC PHP framework'
+        'project_to_update' => ''
       ];
      
       $this->view('pages/index', $data);
@@ -41,8 +41,8 @@
 
     public function project(){
       $data = [
-        'title' => 'About Us',
-        'description' => 'App to share posts with other users'
+        'title' => '',
+        'project_to_update' => ''
       ];
 
       $this->view('pages/project', $data);

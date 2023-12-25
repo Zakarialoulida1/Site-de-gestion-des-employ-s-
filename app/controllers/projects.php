@@ -14,6 +14,7 @@ class projects extends Controller{
 
             // init data
             $data=[
+                'Membre_id'=>$_SESSION['user_id'],
                 'Nom_project'=> trim($_POST['projectName']),
                 'descrip'=> trim($_POST['description']),
                 'Date_de_debut'=> trim($_POST['startDate']),
@@ -28,16 +29,45 @@ class projects extends Controller{
                 /************registring data by class User from the model that they have a function register ************** */
                 if ($this->userModel->create($data)) {
 
-                    redirect('pages/index');
+                    redirect('projects/projects');
                 } else {
                     die('something went wrong');
                 }
             } else {
                 // load the view
-                $this->view('pages/project', $data);
+                $this->view('pages/index', $data);
             }
         }
     }
+    public function projects(){
+       $myprojects= $this->userModel->fetch_my_projects($_SESSION['user_id']);
+    //    var_dump($myprojects);
+    //    die();
+    $data = [
+        'projects' => $myprojects,
+        'project_to_update' => '',
+      ];
+        $this->view('pages/index',$data);
+
+    }
+    public function delete_project($id){
+    
+        $this->userModel->delete_project($id);
+         redirect('projects/projects');
+    }
+    public function project_to_update($id){ 
+        
+        $myprojects= $this->userModel->fetch_project($id);
+        // var_dump($myprojects);
+        // die();
+     $data = [
+         'project_to_update' => $myprojects
+       ];
+         $this->view('pages/update',$data);
+ 
+     }
+     public function 
+    
   
 
 

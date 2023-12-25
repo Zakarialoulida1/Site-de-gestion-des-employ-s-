@@ -193,9 +193,9 @@ class Users extends Controller
         $_SESSION['user_lastname'] = $user->nom;
         $_SESSION['user_phone'] = $user->téléphone;
         $_SESSION['user_role'] = $user->roleuser;
-        // var_dump($_SESSION);
-        // die();
-        $this->view('pages/index', $_SESSION);
+        
+        redirect('projects/projects');
+     
     }
 
     public function logout()
