@@ -22,7 +22,7 @@ $lastname = $_SESSION['user_lastname'];
                 <div class="flex items-center justify-center min-h-screen">
                     <div class="bg-white p-8 rounded shadow-md">
                         <h2 class="text-center font-bold underline ">Add a New Project</h2>
-                        <form action=3<?= URLROOT . ' /projects/delete_project/' . $project->project_ID ?>" method="post" class="flex flex-col">
+                        <form action="<?= URLROOT . ' /projects/update_project/' . $project->project_ID ?>" method="post" class="flex flex-col">
                             <div class="flex flex-col">
                                 <label for="projectName">Project Name:</label>
                                 <input class=" border-2 border-black rounded" type="text" id="projectName" name="projectName" maxlength="200" value="<?php echo $project->Nom_project; ?>">
@@ -39,7 +39,7 @@ $lastname = $_SESSION['user_lastname'];
                                 <label for="endDate">End Date:</label>
                                 <input class=" border-2 border-black rounded" type="date" id="endDate" name="endDate"  value="<?php echo $project->date_fin; ?>">
                             </div>
-                            <a href="" class=" hover:bg-green-400 p-2  mt-2 text-center text-black text-xs font-medium bg-gray-200 rounded-full" name="submit" type="submit" value="Add Project">UPDATE</a>
+                            <button  class=" hover:bg-green-400 p-2  mt-2 text-center text-black text-xs font-medium bg-gray-200 rounded-full" name="submit" type="submit" value="Add Project">UPDATE</button>
                         </form>
                     </div>
                 </div>

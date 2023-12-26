@@ -57,19 +57,22 @@ class Project
     }
 
 
-    public function update_project($id)
+    public function update_project($id,$data)
     {
         try {
-            $this->db->query("UPDATE projects SET 'Nom_project'=?,'descrip'=? ,'Date_de_debut'=? ,'date_fin'=?  projects where project_ID= '$id'");
-
-            $this->db->bind($data['Membre_id']);
+            $this->db->query("UPDATE projects SET Nom_project=?,descrip=? ,Date_de_debut=? ,date_fin=?  where project_ID= '$id'");
+            
+           
+            
             $this->db->bind($data['Nom_project']);
             $this->db->bind($data['descrip']);
             $this->db->bind($data['Date_de_debut']);
             $this->db->bind($data['date_fin']);
+           
+
 
             $this->db->execute();
-            
+            return $this->db->execute();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

@@ -66,8 +66,48 @@ class projects extends Controller{
          $this->view('pages/update',$data);
  
      }
-     public function 
-    
+    public function update_project($id){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+
+            // var_dump($id);
+            // die();
+
+            $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+          
+
+            // init data
+            $data=[
+                'Membre_id'=>$id,
+                'Nom_project'=> trim($_POST['projectName']),
+                'descrip'=> trim($_POST['description']),
+                'Date_de_debut'=> trim($_POST['startDate']),
+                'date_fin'=>trim($_POST['endDate']),
+            ];
+           
+
+
+            if (!empty($data['Nom_project']) && !empty($data['descrip']) && !empty($data['Date_de_debut']) && !empty($data['date_fin'])) {
+                // validated
+//  var_dump($this->userModel->update_project($id,$data));
+//             die();
+                
+
+                /************registring data by class User from the model that they have a function register ************** */
+                if ($this->userModel->update_project($id,$data)) {
+
+                    redirect('projects/projects');
+                } else {
+                    die('something went wrong');
+                }
+            } else {
+                // load the view
+                $this->view('pages/index', $data);
+            }
+        }
+
+
+    }
   
 
 

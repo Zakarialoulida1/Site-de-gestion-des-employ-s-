@@ -1,6 +1,4 @@
-<?php
 
-?>
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php
 
@@ -134,6 +132,9 @@ $lastname = $_SESSION['user_lastname'];
     
                                         <input type="hidden" name="deleteId" value="<?php  ?>"> -->
                             <a href="<?= URLROOT . ' /projects/delete_project/' . $project->project_ID ?>" type="submit" id="delete it" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3">Delete it</a>
+
+                            <a href="<?= URLROOT . ' /tasks/task/' . $project->project_ID ?>" type="submit" id="delete it" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3">View my tasks</a>
+
 
 
                             <!-- </form> -->
