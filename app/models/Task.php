@@ -16,7 +16,7 @@ class Task
 
         $this->db->bind($data['titre']);
         $this->db->bind($data['deadline']);
-        
+
         $this->db->bind($data['status']);
         $this->db->bind($data['id_user']);
         $this->db->bind($data['id_project']);
@@ -63,5 +63,36 @@ class Task
         } catch (PDOException $e) {
             return $e->getMessage();
         }
+    }
+    public function fetch_task($id_task)
+    {
+        try {
+            $this->db->query("SELECT * from task where id_task= $id_task");
+            $this->db->execute();
+            return $this->db->single();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function update_task($id_task,$data){
+
+        try {
+            $this->db->query("UPDATE task SET titre=?,deadline=? ,status=?   where id_task= '$id_task'");
+            
+           
+            
+            $this->db->bind($data['titre']);
+            $this->db->bind($data['deadline']);
+            $this->db->bind($data['status']);
+           
+           
+
+
+            $this->db->execute();
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+
     }
 }

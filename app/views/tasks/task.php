@@ -113,7 +113,7 @@
                 <input id="submitTask" value="Add Task" type="submit" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">
                 <button id="cancelTask" class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm close">Cancel</button>
             </div>
-            
+
         </form>
         <button id="closeTaskForm" class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600 close" aria-label="close modal" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -168,25 +168,42 @@
                     tasks.forEach(task => {
 
                         const tagElement = document.createElement("div");
-                        const icon = document.createElement("div");
-                        icon.className = "w-fit flex gap-2"
+                        const icon1 = document.createElement("div");
+                        icon1.className = "w-fit flex gap-2"
                         tagElement.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex  justify-between";
                         tagElement.textContent = task.titre;
+                        const deadline = document.createElement("span");
+                        deadline.className = "bg-red-400 p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex  justify-between";
+                        deadline.textContent = task.deadline;
 
+                      /*********************archiver icone and url ********** */
+                        const archive = document.createElement("i");
+                        archive.className = "fa-solid fa-box-archive bg-red-400 p-1 rounded cursor-pointer h-[20px]  ";
+                        const anchorElement2 = document.createElement("a");
+                        anchorElement2.href = " <?php echo URLROOT . '/tasks/archive_task/'; ?>" + task.id_task; // Replace '#' with the actual href value
+                        anchorElement2.appendChild(archive);
+                        const edit = document.createElement("i");
+                        edit.className = "fa-regular fa-pen-to-square bg-green-400 p-1 rounded cursor-pointer h-[20px]";
+                        /********** */
+                        // edit.textContent = task.id_task;
+                        // const task =task.id_task;
 
-                        const Doing = document.createElement("i");
-                        Doing.className = "fas fa-undo bg-blue-400 p-1 rounded cursor-pointer h-[20px]  ";
-                        Doing.textContent = "Doing";
-                        const done = document.createElement("i");
-                        done.className = "fa-solid fa-check bg-green-400 p-1 rounded cursor-pointer h-[20px]";
-                        done.textContent = "Done";
+                        icon1.appendChild(edit);
+                        // icon.appendChild(archive);
 
-                        icon.appendChild(done);
-                        icon.appendChild(Doing);
-
-                        $(icon).appendTo(tagElement);
+                        const anchorElement = document.createElement("a");
+                        anchorElement.href = " <?php echo URLROOT . '/tasks/edit_tasks/'; ?>" + task.id_task; // Replace '#' with the actual href value
+                        anchorElement.appendChild(icon1);
+                        tagElement.appendChild(anchorElement);
+                        tagElement.appendChild(anchorElement2);
+                        tagElement.appendChild(deadline);
+                        $(deadline).appendTo(tagElement);
                         $(tagElement).appendTo('#todo');
-                        Doing.addEventListener('click', () => {
+
+                        // $(icon1).appendTo(tagElement);
+                        // $(tagElement).appendTo('#todo');
+                        edit.addEventListener('click', () => {
+
 
 
 
@@ -250,10 +267,37 @@
                     // console.log(tasks);
 
                     tasks.forEach(task => {
+                        const tagElement = document.createElement("div");
+                        const icon1 = document.createElement("div");
+                        icon1.className = "w-fit flex gap-2"
+                        tagElement.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex  justify-between";
+                        tagElement.textContent = task.titre;
+                        const deadline = document.createElement("span");
+                        deadline.className = "bg-red-400 p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex  justify-between";
+                        deadline.textContent = task.deadline;
 
-                        $('<div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">' + task.titre + '</div>').appendTo('#doing');
-                        // const taskElement = $('<div>').addClass('bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter').text(task.titre);
-                        // todoColumn.append(taskElement);
+
+                        // const archive = document.createElement("i");
+                        // archive.className = "fa-solid fa-box-archive bg-red-400 p-1 rounded cursor-pointer h-[20px]  ";
+                        // // archive.textContent = "";
+                        const edit = document.createElement("i");
+                        edit.className = "fa-regular fa-pen-to-square bg-green-400 p-1 rounded cursor-pointer h-[20px]";
+                        // edit.textContent = task.id_task;
+                        // const task =task.id_task;
+
+                        icon1.appendChild(edit);
+                        // icon.appendChild(archive);
+
+                        const anchorElement = document.createElement("a");
+                        anchorElement.href = " <?php echo URLROOT . '/tasks/edit_tasks/'; ?>" + task.id_task; // Replace '#' with the actual href value
+                        anchorElement.appendChild(icon1);
+                        tagElement.appendChild(anchorElement);
+                        tagElement.appendChild(deadline);
+                        $(deadline).appendTo(tagElement);
+                        $(tagElement).appendTo('#doing');
+
+
+                        /****************** */
                     });
                 },
                 error: function(error) {
@@ -278,9 +322,35 @@
 
                     tasks.forEach(task => {
 
-                        $('<div class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">' + task.titre + '</div>').appendTo('#done');
-                        // const taskElement = $('<div>').addClass('bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter').text(task.titre);
-                        // todoColumn.append(taskElement);
+                        const tagElement = document.createElement("div");
+                        const icon1 = document.createElement("div");
+                        icon1.className = "w-fit flex gap-2"
+                        tagElement.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex  justify-between";
+                        tagElement.textContent = task.titre;
+                        const deadline = document.createElement("span");
+                        deadline.className = "bg-red-400 p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex  justify-between";
+                        deadline.textContent = task.deadline;
+
+
+                        // const archive = document.createElement("i");
+                        // archive.className = "fa-solid fa-box-archive bg-red-400 p-1 rounded cursor-pointer h-[20px]  ";
+                        // // archive.textContent = "";
+                        const edit = document.createElement("i");
+                        edit.className = "fa-regular fa-pen-to-square bg-green-400 p-1 rounded cursor-pointer h-[20px]";
+                        // edit.textContent = task.id_task;
+                        // const task =task.id_task;
+
+                        icon1.appendChild(edit);
+                        // icon.appendChild(archive);
+
+                        const anchorElement = document.createElement("a");
+                        anchorElement.href = " <?php echo URLROOT . '/tasks/edit_tasks/'; ?>" + task.id_task; // Replace '#' with the actual href value
+                        anchorElement.appendChild(icon1);
+                        tagElement.appendChild(anchorElement);
+                        tagElement.appendChild(deadline);
+                        $(deadline).appendTo(tagElement);
+                        $(tagElement).appendTo('#done');
+
                     });
                 },
                 error: function(error) {
