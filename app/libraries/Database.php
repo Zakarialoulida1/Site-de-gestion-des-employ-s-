@@ -113,6 +113,10 @@ public function getParams(){
       $this->execute();
       return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    public function return_array(){
+      $this->execute();
+      return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     // Get single record as object
     public function single(){
