@@ -33,7 +33,7 @@ class Task
         try {
             // var_dump($id);
             // die();
-            $this->db->query("SELECT * FROM task WHERE id_project= $id  AND status = -1");
+            $this->db->query("SELECT * FROM task WHERE id_project= $id  AND status = -1 AND archive=0 ");
             $this->db->execute();
             return $this->db->resultSet();
         } catch (PDOException $e) {
@@ -45,7 +45,7 @@ class Task
         try {
             // var_dump($id);
             // die();
-            $this->db->query("SELECT * FROM task WHERE id_project= $id  AND status = 0 ");
+            $this->db->query("SELECT * FROM task WHERE id_project= $id  AND status = 0 AND archive=0 ");
             $this->db->execute();
             return $this->db->resultSet();
         } catch (PDOException $e) {
@@ -57,7 +57,7 @@ class Task
         try {
             // var_dump($id);
             // die();
-            $this->db->query("SELECT * FROM task WHERE id_project= $id  AND status = 1 ");
+            $this->db->query("SELECT * FROM task WHERE id_project= $id  AND status = 1 AND archive=0 ");
             $this->db->execute();
             return $this->db->resultSet();
         } catch (PDOException $e) {
@@ -94,5 +94,26 @@ class Task
             return $e->getMessage();
         }
 
+    }
+    public function archive_task($id_task){
+        
+        try {
+            $this->db->query("UPDATE task   SET archive=1   where id_task= '$id_task'");
+       
+            $this->db->execute();
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function found_task($titre){
+        try{
+            $this->db->query("SELECT * from task where titre LIKE '%{$titre}%' AND archive=0 ORDER BY deadline  ");
+            $this->db->execute();
+            return $this->db->return_array();
+        }catch(PDOException $e){
+            return $e->getMessage();
+
+        }
     }
 }

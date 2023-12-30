@@ -20,6 +20,8 @@
         $this->currentController = ucwords($url[0]);
         // Unset 0 Index
         unset($url[0]);
+      }else{
+        
       }
 
       // Require the controller
@@ -50,6 +52,8 @@
         $url = rtrim($_GET['url'], '/');
         $url = filter_var($url, FILTER_SANITIZE_URL);
         $url = explode('/', $url);
+        // var_dump($url);
+        // die();
         return $url;
       }
     }
