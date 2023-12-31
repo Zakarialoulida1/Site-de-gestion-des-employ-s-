@@ -18,7 +18,7 @@
 
                 <h1 class="font-semibold underline" id="heading">LOGIN IN YOUR ACCOUNT</h1><br>
                 <form class="  flex flex-col items-center" action="<?php echo URLROOT;?>/users/login" method="post">
-                    <!-- name="form" action="signup.php" method="POST" -->
+    
                     <?php if (isset($_GET['error'])) { ?>
                         <p class="error"><?php echo $_GET['error']; ?></p>
                     <?php } ?>

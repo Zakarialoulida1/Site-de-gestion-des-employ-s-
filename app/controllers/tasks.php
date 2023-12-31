@@ -117,7 +117,7 @@ class Tasks extends Controller
 
 
 
-                    header("location: http://localhost/traversymvc%20/tasks/task/$task->id_project");
+                    header("location: http://localhost/brief--9%20/tasks/task/$task->id_project");
                     // $this->view('tasks/task',$task->id_project);
                     // redirect('tasks/task');
 
@@ -142,7 +142,7 @@ class Tasks extends Controller
 
 
 
-            header("location: http://localhost/traversymvc%20/tasks/task/$task->id_project");
+            header("location: http://localhost/brief--9%20/tasks/task/$task->id_project");
             // $this->view('tasks/task',$task->id_project);
             // redirect('tasks/task');
 

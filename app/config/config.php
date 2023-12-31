@@ -5,9 +5,10 @@
   define('DB_PASS', '');
   define('DB_NAME', 'brief_9');
 
+
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)));
   // URL Root
-  define('URLROOT', 'http://localhost/traversymvc');
+  define('URLROOT', 'http://localhost/brief--9');
   // Site Name
   define('SITENAME', 'DATAWARE');

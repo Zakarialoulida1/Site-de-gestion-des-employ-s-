@@ -120,6 +120,7 @@ class Users extends Controller
     }
     public function login()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $data = [
