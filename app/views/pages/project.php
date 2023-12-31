@@ -1,7 +1,6 @@
-<?php 
 
-?>
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/check_session.php'; ?>
 
 <div id="popup" class=" fixed inset-0 bg-gray-500 bg-opacity-75 overflow-y-auto">
   <div class="flex items-center justify-center min-h-screen">

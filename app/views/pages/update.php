@@ -1,21 +1,14 @@
-
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/check_session.php'; ?>
 <?php
-
-
-
 $image = $_SESSION['user_image'];
 $name = $_SESSION['user_name'];
 $lastname = $_SESSION['user_lastname'];
-
 ?>
 
             <?php 
             
              $project=$data['project_to_update'];
-            //   var_dump($project);
-            //   die();
-            
             ?>
 
             <div id="popup" class=" fixed inset-0 bg-gray-500 bg-opacity-75 overflow-y-auto ">

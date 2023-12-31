@@ -1,39 +1,34 @@
 
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/check_session.php'; ?>
+
 <?php
-
-
-// var_dump($_SESSION);
-//         die();
-
 $image = $_SESSION['user_image'];
 $name = $_SESSION['user_name'];
 $lastname = $_SESSION['user_lastname'];
 
+
 ?>
 
-<div id="sidebar" class="min-h-[640px] bg-gray-100 hidden fixed w-full lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0  z-50 ">
+<div id="sidebar" class=" bg-gray-100 hidden fixed w-full lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0  z-50 ">
 
-    <div class="flex-1 flex flex-col min-h-0 bg-[#9ad0d3]">
+    <div  class="flex-1 flex flex-col min-h-0 bg-[#9ad0d3]">
         <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
             <div class="flex  justify-between items-center  px-4">
                 <button id="fermernav"><i class=" lg:hidden text-black fas fa-times fa-2xl"></i></button>
-                <img class="lg:hidden h-12 inline-block m-2 " src="./img/logo (1).png" alt="Workflow">
+                <img class="lg: h-12 inline-block m-2 " src="<?php echo URLROOT . '/img/logo.png' ; ?>" alt="Workflow">
             </div>
-            <nav class="mt-5 flex-1 px-2 space-y-1">
+            <!-- <div class="mt-5 flex-1 px-2 space-y-1">
 
-
-
-
-                <a id="btnproject" class="text-black hover:bg-[#BFD8D5] hover:bg-opacity-75 group flex items-center px-2 py-2 text-sm font-medium rounded-md" x-state-description="undefined: &quot;bg-indigo-800 text-black&quot;, undefined: &quot;text-black hover:bg-[#BFD8D5] hover:bg-opacity-75&quot;">
-                    <svg class="mr-3 flex-shrink-0 h-6 w-6 text-black" x-description="Heroicon name: outline/folder" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <a id="btnproject" class=" cursor-pointer text-black hover:bg-[#BFD8D5] hover:bg-opacity-75 group flex items-center px-2 py-2 text-sm font-medium rounded-md" x-state-description="undefined: &quot;bg-indigo-800 text-black&quot;, undefined: &quot;text-black hover:bg-[#BFD8D5] hover:bg-opacity-75&quot;">
+                    <svg class=" cursor-pointer mr-3 flex-shrink-0 h-6 w-6 text-black" x-description="Heroicon name: outline/folder" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
                     </svg>
                     My Projects
                 </a>
-
-
-            </nav>
+           
+            </div> -->
+          
         </div>
         <div class="w-full flex justify-between items-center border-t border-black p-4">
 
@@ -88,7 +83,7 @@ $lastname = $_SESSION['user_lastname'];
         </div>
 
         <div class="myproject bg-gray-100 py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class=" text-center">YOUR PROJECTS </h1>
+            <h1 class=" text-center p-8 bg-green-100 my-2">YOUR PROJECTS </h1>
 
             <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3  2lg:grid-cols-4">
 
@@ -123,24 +118,10 @@ $lastname = $_SESSION['user_lastname'];
 
                         </div>
                         <div class="-mt-px flex divide-x divide-gray-200  ">
-
-
-
-
-
-                            <!-- <form class=" w-0 flex-1 flex" method="post">
-    
-                                        <input type="hidden" name="deleteId" value="<?php  ?>"> -->
                             <a href="<?= URLROOT . ' /projects/delete_project/' . $project->project_ID ?>" type="submit" id="delete it" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3">Delete it</a>
-
                             <a href="<?= URLROOT . ' /tasks/task/' . $project->project_ID ?>" type="submit" id="delete it" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3">View my tasks</a>
-
-
-
-                            <!-- </form> -->
                             <a href="<?= URLROOT . ' /projects/project_to_update/' . $project->project_ID ?>" class="btn_update_project relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 ml-3"><button> UPDATE</button>
                             </a>
-
                         </div>
 
 
@@ -152,40 +133,14 @@ $lastname = $_SESSION['user_lastname'];
 
             </ul>
             <?php 
-             if(true){
-                $data['project_to_update'];
-             }
             
+                $data['project_to_update'];
+        
             ?>
 
-            <div id="popup" class=" fixed inset-0 bg-gray-500 bg-opacity-75 overflow-y-auto hidden">
-                <div class="flex items-center justify-center min-h-screen">
-                    <div class="bg-white p-8 rounded shadow-md">
-                        <h2 class="text-center font-bold underline ">Add a New Project</h2>
-                        <form action="<?php echo URLROOT; ?>/projects/create" method="post" class="flex flex-col">
-                            <div class="flex flex-col">
-                                <label for="projectName">Project Name:</label>
-                                <input class=" border-2 border-black rounded" type="text" id="projectName" name="projectName" maxlength="200">
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="description">Description:</label>
-                                <textarea class=" border-2 border-black rounded" id="description" name="description" rows="4" cols="50" maxlength="3000"></textarea>
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="startDate">Start Date:</label>
-                                <input class=" border-2 border-black rounded" type="date" id="startDate" name="startDate">
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="endDate">End Date:</label>
-                                <input class=" border-2 border-black rounded" type="date" id="endDate" name="endDate">
-                            </div>
-                            <input class=" hover:bg-green-400 p-2  mt-2 text-center text-black text-xs font-medium bg-gray-200 rounded-full" name="submit" type="submit" value="Add Project">
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-
+     
     </main>
+    <script>
+   
+</script>
     <?php require APPROOT . '/views/inc/footer.php'; ?>

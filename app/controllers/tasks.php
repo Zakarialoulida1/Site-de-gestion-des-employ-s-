@@ -151,14 +151,14 @@ class Tasks extends Controller
         }
     }
 
-    public function search_task()
+    public function search_task($id_project)
     {
 
         /*********************** */
 
         if (isset($_POST['input'])) {
             $input = $_POST['input'];
-            $tasks = $this->userModel->found_task($input);
+            $tasks = $this->userModel->found_task($input,$id_project);
 
 
 foreach ($tasks as $task) {

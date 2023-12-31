@@ -1,8 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-<?php
-// var_dump($data->deadline);
-// die();
-?>
+<?php require APPROOT . '/views/inc/check_session.php'; ?>
+
 <div id="taskForm" class=" fixed inset-0 bg-gray-700 bg-opacity-75 z-10 flex items-center justify-center">
     <div class="bg-white p-8 rounded shadow-md">
         <form action="<?php echo URLROOT . '/tasks/update_task/' . $data->id_task ?>" method="post">

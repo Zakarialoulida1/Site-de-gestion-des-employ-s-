@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/check_session.php'; ?>
 <div class="flex justify-around items-center p-8 text-xl bg-[#1f9fa6]">
-
 
     <a href="<?php echo URLROOT; ?>/projects/projects " class="inline  p-4  text-sm text-gray-900 border border-gray-300 rounded-lg bg-GREEN-500 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         BACK</a>
@@ -13,17 +13,10 @@
                 </svg>
             </div>
             <input type="text" id="default-search" class="inline w-[50vw] p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="search" required>
-
         </div>
-
-
     </form>
 
-
-
     <button id="addTaskButton" CLASS="bg-[#9ad0d9]  p-2 rounded"> Add Task</a>
-
-
 
 </div>
 
@@ -68,20 +61,16 @@
 </div>
 
 
-
-<!-- Votre bouton d'ajout de tâche -->
-
-<!-- La forme de la tâche (initiallement cachée avec la classe hidden) -->
 <div id="taskForm" class="hidden fixed inset-0 bg-gray-700 bg-opacity-75 z-10 flex items-center justify-center">
     <div class="bg-white p-8 rounded shadow-md">
         <form action="<?php echo URLROOT . '/tasks/add_task/' . $data['id_project'] ?>" method="post">
             <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Add Task :</h1>
             <label for="taskName" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Task Name:</label>
             <input id="taskName" name="titre" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" placeholder="" />
-            <!-- Ajoutez d'autres champs nécessaires pour votre formulaire de tâche -->
+
             <div class="flex flex-col m-4">
                 <label for="startDate">DEADLINE</label>
-                <input class=" border-2 border-black rounded" type="date" id="startDate" name="deadline">
+                <input class=" border-2 border-black rounded" type="date" id="startDate" name="deadline" required>
                 <label for="startDate">STATUS</label>
                 <select name="status" id="" class="border-2 border-black rounded">
                     <option value="-1">to do </option>
@@ -106,12 +95,12 @@
 </div>
 
 
-<!-- Include jQuery (you can include it from a CDN) -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
-        // Function to fetch tasks using AJAX with jQuery
+
         function fetchTaskstodo() {
 
             const fetchUrl = '<?php echo URLROOT . '/tasks/fetch_tasks/' . $data['id_project']; ?>';
@@ -154,8 +143,9 @@
                         const container = document.createElement("div");
                         container.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex items-center justify-between";
                         container.appendChild(deadline);
-                        container.appendChild(anchorElement2);container.appendChild(anchorElement);
-                        
+                        container.appendChild(anchorElement2);
+                        container.appendChild(anchorElement);
+
 
                         /********************** */
 
@@ -199,13 +189,12 @@
 
         /********** */
 
-        // Function to fetch tasks using AJAX with jQuery
         function fetchTasksdoing() {
-            // Assuming you have a route that handles task fetching, adjust the URL accordingly
+
             const fetchUrl = '<?php echo URLROOT . '/tasks/fetch_tasks_doing/' . $data['id_project']; ?>';
 
             //   console.log(fetchUrl);
-            // Make an AJAX request using jQuery
+
             $.ajax({
                 url: fetchUrl,
                 type: 'GET',
@@ -244,8 +233,9 @@
                         const container = document.createElement("div");
                         container.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex items-center justify-between";
                         container.appendChild(deadline);
-                       container.appendChild(anchorElement2);  container.appendChild(anchorElement);
-                       
+                        container.appendChild(anchorElement2);
+                        container.appendChild(anchorElement);
+
 
 
                         /********************** */
@@ -306,8 +296,9 @@
                         const container = document.createElement("div");
                         container.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex items-center justify-between";
                         container.appendChild(deadline);
-                      container.appendChild(anchorElement2);  container.appendChild(anchorElement);
-                        
+                        container.appendChild(anchorElement2);
+                        container.appendChild(anchorElement);
+
 
 
                         /********************** */
@@ -331,7 +322,7 @@
             console.log("gggggg");
             if (input != "") {
                 // alert(input);
-                const fetchUrl = '<?php echo URLROOT . '/tasks/search_task/'; ?>';
+                const fetchUrl = '<?php echo URLROOT . '/tasks/search_task/' . $data['id_project']; ?>';
                 $.ajax({
                     url: fetchUrl,
                     method: "POST",
@@ -344,49 +335,11 @@
                         console.log(tasks);
                         $("#search_result").html(tasks);
 
-                        // tasks.forEach(task => {
 
-                        //     /*****************************paragraph************************ */
-                        //     const tagElement = document.createElement("div");
-                        //     tagElement.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter w-full ";
-                        //     tagElement.textContent = task.titre;
-                        //     /**************deadline******************/
-                        //     const deadline = document.createElement("span");
-                        //     deadline.className = "bg-red-400 p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex  justify-between";
-                        //     deadline.textContent = task.deadline;
-
-                        //     /*********************archiver icone and url ********** */
-                        //     const archive = document.createElement("i");
-                        //     archive.className = "fa-solid fa-box-archive bg-red-400 p-1 rounded cursor-pointer h-[20px]  ";
-                        //     const anchorElement2 = document.createElement("a");
-                        //     anchorElement2.href = " <?php echo URLROOT . '/tasks/archive_task/'; ?>" + task.id_task; // Replace '#' with the actual href value
-                        //     anchorElement2.appendChild(archive);
-
-                        //     /*****************edit*** */
-                        //     const edit = document.createElement("i");
-                        //     edit.className = "fa-regular fa-pen-to-square bg-green-400 p-1 rounded cursor-pointer h-[20px]";
-                        //     const anchorElement = document.createElement("a");
-                        //     anchorElement.href = " <?php echo URLROOT . '/tasks/edit_tasks/'; ?>" + task.id_task; // Replace '#' with the actual href value
-                        //     anchorElement.appendChild(edit);
-                        //     /*********div contenant les 2 icons archive et edit et deadline******* */
-
-                        //     const container = document.createElement("div");
-                        //     container.className = "bg-white p-2 rounded mt-1 border-b border-grey  hover:bg-grey-lighter flex items-center justify-between";
-                        //     container.appendChild(anchorElement);
-                        //     container.appendChild(anchorElement2);
-                        //     container.appendChild(deadline);
-
-                        //     /********************** */
-
-                        //     tagElement.appendChild(container);
-
-                        //     $(tagElement).appendTo('#search_result');
-
-                        // });
                     },
-                    // error: function(xhr, status, error) {
-                    //     console.error('Error fetching tasks:', status, error);
-                    // }
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching tasks:', status, error);
+                    }
                 });
                 $("#todo").hide();
                 $("#doing").hide();
