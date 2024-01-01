@@ -15,7 +15,6 @@ class Tasks extends Controller
         $data = [
             'titre' => '',
             'id_project' => $id,
-
             'titre' => '',
 
 
