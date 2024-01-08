@@ -46,4 +46,6 @@ L'application est accessible sur différents navigateurs web et appareils, assur
 Accessibilité :
 
 L'application prend en compte les utilisateurs ayant des besoins en termes de déficience visuelle ou auditive.
-Instructions d'Installatio
+# diagramme UML
+
+https://drive.google.com/file/d/1ArscLRYIQ-spwObQOekuSWZmUOk4IJyT/view?usp=sharing
